@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 
 public class Test {
-	static String adminId="admin";
+	static String adminId="1234";
 	static String adminPIN="0000";
 	static ArrayList<User> users;
 	static ArrayList<Withdraw> withdraws;
@@ -71,7 +71,7 @@ String todayAsString = dateFormat.format(date2);
 					}
 					else if (choice2.equals("2")) {
 						for (int i = 0; i < users.size(); i++) {
-							System.out.println("User("+i+") Details: "+users.get(i).getId()+"  "+users.get(i).getPIN()+"  "+users.get(i).getAccount().getAccountNo()+"  "+users.get(i).getAccount().getBalance()+"\n");
+							System.out.println("User("+(i+1)+") Details: "+"Id: "+users.get(i).getId()+", Pin: "+users.get(i).getPIN()+", Account Number: "+users.get(i).getAccount().getAccountNo()+", Balance: $"+users.get(i).getAccount().getBalance()+"\n");
 						}
 					}
 					else if (choice2.equals("3")) {
@@ -109,8 +109,17 @@ String todayAsString = dateFormat.format(date2);
 				if (choice.equals("1")) {
 					
 					System.out.println("Withdraws: ");
+					for (int i = 0; i < withdraws.size(); i++) {
+						System.out.println("("+(i+1)+") Account Number: "+withdraws.get(i).getAccountNo()+"  ,Amount: $"+withdraws.get(i).getValue()+"  ,Date: "+withdraws.get(i).getDate()+"\n");
+					}
 					System.out.println("Deposits: ");
+					for (int i = 0; i < deposits.size(); i++) {
+						System.out.println("("+(i+1)+") Account Number: "+deposits.get(i).getAccountNo()+"  ,Amount: $"+deposits.get(i).getValue()+"  ,Date: "+deposits.get(i).getDate()+"\n");
+					}
 					System.out.println("Transfers: ");
+					for (int i = 0; i < transfers.size(); i++) {
+						System.out.println("("+(i+1)+") Transferer Account Number: "+transfers.get(i).getAccountNoFrom()+"  ,Receiver Account Number: "+transfers.get(i).getAccountNoTo()+"  ,Amount: $"+transfers.get(i).getValue()+"  ,Date: "+transfers.get(i).getDate()+"\n");
+					}
 				}
 				
 				else if (choice.equals("2")) {
