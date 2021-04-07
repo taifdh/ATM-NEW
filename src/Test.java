@@ -1,4 +1,7 @@
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
 
 
@@ -6,9 +9,28 @@ public class Test {
 	static String adminId="admin";
 	static String adminPIN="0000";
 	static ArrayList<User> users;
+	static ArrayList<Withdraw> withdraws;
+	static ArrayList<Deposit> deposits;
+	static ArrayList<Transfer> transfers;
 public static void main(String[] args) {
 	
+	SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+	Calendar calendar2 = Calendar.getInstance();
+	calendar2.add(Calendar.DAY_OF_YEAR, 0);
+	calendar2.set(Calendar.HOUR_OF_DAY, 0);
+	calendar2.set(Calendar.MINUTE, 0);
+	calendar2.set(Calendar.SECOND, 0);
+	calendar2.set(Calendar.MILLISECOND, 0);
+
+ Date date2= calendar2.getTime();
+
+
+String todayAsString = dateFormat.format(date2);
+	
 	users=new ArrayList<User>();
+	withdraws=new ArrayList<Withdraw>();
+	deposits=new ArrayList<Deposit>();
+	transfers=new ArrayList<Transfer>();
 	boolean condtion1=true;
 	
 	do {
@@ -86,6 +108,9 @@ public static void main(String[] args) {
 				String choice=input.nextLine();
 				if (choice.equals("1")) {
 					
+					System.out.println("Withdraws: ");
+					System.out.println("Deposits: ");
+					System.out.println("Transfers: ");
 				}
 				
 				else if (choice.equals("2")) {
@@ -97,6 +122,8 @@ public static void main(String[] args) {
 						balance-=amount;
 						users.get(index).getAccount().setBalance(balance);
 						System.out.println("$"+amount+"Withdrawn >> Current Balance= "+"$"+balance);
+						Withdraw withdraw= new Withdraw(users.get(index).getAccount().getAccountNo(), amount, todayAsString);
+						withdraws.add(withdraw);
 					}
 					else {System.out.println("Not Enough Balance to Cover This Withdrawal!");}
 				}
@@ -110,6 +137,8 @@ public static void main(String[] args) {
 						balance+=amount;
 						users.get(index).getAccount().setBalance(balance);
 						System.out.println("$"+amount+"Deposited >> Current Balance= "+"$"+balance);
+						Deposit deposit= new Deposit(users.get(index).getAccount().getAccountNo(), amount, todayAsString);
+						deposits.add(deposit);
 						
 				}
 				
@@ -138,6 +167,8 @@ public static void main(String[] args) {
 							users.get(index).getAccount().setBalance(balance);
 							users.get(index2).getAccount().setBalance(balance2);
 							System.out.println("$"+amount+"Transfered >> Current Balance= "+"$"+balance);
+							Transfer transfer= new Transfer(users.get(index).getAccount().getAccountNo(),users.get(index2).getAccount().getAccountNo(), amount, todayAsString);
+							transfers.add(transfer);
 						}
 						else {System.out.println("Not Enough Balance to Cover This Transfer!");}
 					}
